@@ -1,0 +1,28 @@
+string $array[] = `ls -sl`;
+int $rotMin = -35;
+int $rotMax = 35;
+
+int $translateMin = -1;
+int $translateMax = 1;
+
+float $divisor = 20;
+
+for ($item in $array)
+{
+    //print($item.ry + "\n");
+    float $newX = `getAttr($item + ".translateX")` + (rand($translateMin, $translateMax) / $divisor);
+    float $newY = `getAttr($item + ".translateY")` + (rand($translateMin, $translateMax) / $divisor);
+    float $newZ = `getAttr($item + ".translateZ")` + (rand($translateMin, $translateMax) / $divisor);
+    
+    setAttr($item + ".translateX") $newX;
+    setAttr($item + ".translateY") $newY;
+    setAttr($item + ".translateZ") $newZ;
+    
+    float $newRotX = `getAttr($item + ".rx")` + (rand($rotMin, $rotMax) / $divisor);
+    float $newRotY = `getAttr($item + ".ry")` + (rand($rotMin, $rotMax) / $divisor);
+    float $newRotZ = `getAttr($item + ".rz")` + (rand($rotMin, $rotMax) / $divisor);
+    
+    setAttr($item + ".rx") $newRotX;
+    setAttr($item + ".ry") $newRotY;
+    setAttr($item + ".rz") $newRotZ;
+}

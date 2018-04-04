@@ -1,0 +1,21 @@
+string $exportDir[] = `fileDialog2
+    -fileFilter "Folders (*)"
+    -okCaption "Select"
+    -cancelCaption "Cancel"
+    -dialogStyle 2
+    -fileMode 3`;
+
+$fileDir = $exportDir[0] + "/";
+
+if($fileDir != "/"){
+    select -ado;
+    string $objectList2[] = `ls -sl -o`;
+    for($object in $objectList2){
+        select -r $object;
+        sets -e -forceElement initialShadingGroup;
+        $fileToExport = $fileDir + $object + ".fbx";
+        file -force -options "v=0;" -typ "FBX export" -pr -es $fileToExport;
+        select -cl;
+    }
+    select -cl;
+}

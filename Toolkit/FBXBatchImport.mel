@@ -1,0 +1,15 @@
+string $startImport2[] = `fileDialog2
+	-fileFilter "Folders (*)"
+	-okCaption "OK"
+	-cancelCaption "Cancel"
+	-dialogStyle 2
+	-fileMode 3`;
+
+$fileDir = $startImport2[0] + "/";
+
+string $fileList2[] = `getFileList -folder $fileDir -filespec "*.fbx"`;
+for($file in $fileList2){
+    print($fileDir + $file + "\n");
+    $fullFilePath = $fileDir + $file;
+    file -import -type "FBX"  -ignoreVersion -ra true -mergeNamespacesOnClash false -namespace "models" -options "groups=1;ptgroups=1;materials=1;smoothing=1;normals=1"  -pr $fullFilePath;
+}
